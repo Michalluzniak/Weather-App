@@ -66,18 +66,23 @@ class WeatherApp {
             fetch('http://api.positionstack.com/v1/forward?access_key=' + this.apiKeys.weatherApiKey + '&timezone_module=1&query=' + citySearch.value)
                 .then(res => res.json())
                 .then(data => {
-
+                    console.log(data)
                     this.timeZone =
                         data['data']['0']['timezone_module']['offset_string'];
                     console.log(this.timeZone)
                     this.latitude = data['data']['0']['latitude'];
                     this.longitude = data['data']['0']['longitude'];
-                    this.cityName = data['data']['0']['locality'];
+                    this.cityName = data['data']['1']['locality'];
+                    console.log(this.cityName);
                     country.innerText = data['data']['0']['country'];
                     city.innerText = this.cityName;
                     resolve();
                 })
-                .catch(err => reject('wrong city name'));
+                .catch(err => {
+                    reject('wrong')
+                    loadingScreenAnimation.style.display = 'none';
+                    alert('cant find city')
+                });
 
         })
     }
@@ -185,11 +190,11 @@ class WeatherApp {
 
         return new Promise((resolve, reject) => {
 
-            console.log(this.cityName)
+            console.log(this.cityName + ' city')
             fetch('https://api.unsplash.com/search/photos/?query=' + this.cityName + ' city&client_id=' + this.apiKeys.cityBgClientId)
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data['results'][0]['urls']['full'])
+                    console.log(data)
                     const img = new Image();
                     img.src = data['results'][0]['urls']['full'];
                     img.decode().then(() => {
@@ -208,6 +213,7 @@ class WeatherApp {
                         .then(res => res.json()).then(data => {
                             bgPhoto.style.backgroundImage =
                                 'url(' + data['results'][1]['urls']['full'] + ')';
+
                             resolve();
                         })
                 });
@@ -250,8 +256,6 @@ searchBtn.addEventListener('click', async () => {
     app.timeDisplay()
     app.dateDisplay();
     app.firstLoadingScreen()
-
-
 })
 
 
