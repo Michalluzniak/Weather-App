@@ -1,0 +1,38 @@
+div.date__and__hour {
+    position: absolute;
+    top: 20%;
+    left: 12.5%;
+    transform: translate(-50%, -50%);
+    height: 90px;
+    width: 25%;
+
+    .hour__box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        color: white;
+
+        p {
+            font-size: 64px;
+
+            span.ampm {
+                font-size: 36px;
+            }
+        }
+    }
+
+    .date__box {
+        position: absolute;
+        left: 28%;
+        height: 25%;
+        width: 100%;
+
+        p {
+            width: 100%;
+            font-size: 22px;
+            color: white;
+        }
+    }
+}

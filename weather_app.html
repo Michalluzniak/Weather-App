@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/d9b8bb9b33.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles/style/weather_app.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="weather_app.js" defer></script>
+    <title>Weather App</title>
+</head>
+
+<body>
+    <div class="loading__screen">
+        <p>Loading your weather</p>
+        <svg>
+            <circle cx='70' cy='70' r='70' />
+        </svg>
+    </div>
+    <div class="bg__photo"></div>
+    <nav class="searchbox">
+        <input class="city__search" type="text" placeholder="Tokyo, Japan">
+        <div class="search__icon">
+            <i class="fas fa-search"></i>
+        </div>
+    </nav>
+    <div class="date__and__hour">
+        <div class="hour__box">
+            <p class="hour">11:30 <span class="ampm">PM</span></p>
+        </div>
+        <div class="date__box">
+            <p class="date">Monday, 5 July 2021</p>
+        </div>
+    </div>
+    <div class="city__description">
+        <div class="which__city__box">
+            <h1>weather in:</h1>
+        </div>
+        <div class="country">
+            <h2>Japan</h2>
+        </div>
+        <div class="city">
+            <h3>Tokyo</h3>
+        </div>
+    </div>
+    <main class="weather__info">
+        <section class="today">
+            <img class="weather__icon sun" src="/images/animated/Sunny skies.svg" alt="">
+            <div class="weather__info">
+                <p class="temperature">20°</p>
+                <p class="humidity">HUMIDITY: 40% </p>
+                <p class="windspeed">WIND SPEED: 12 km/h</p>
+                <p class="weather__description">
+                </p>
+            </div>
+        </section>
+        <div class="rest__of__days__container">
+            <section class="next__day">
+                <h3>next day</h3>
+                <img class="weather__icon sun" src="/images/animated/Cloudy skies.svg" alt="">
+                <p class="weather__description">
+                </p>
+                <p class="temperature">20°</p>
+            </section>
+            <section class="next__day">
+                <h3>next day</h3>
+                <img class="weather__icon sun" src="/images/animated/Sunny skies.svg" alt="">
+                <p class="weather__description">
+                </p>
+                <p class="temperature">20°</p>
+            </section>
+            <section class="next__day">
+                <h3>next day</h3>
+                <img class="weather__icon sun" src="/images/animated/Sunny skies.svg" alt="">
+                <p class="weather__description">
+                </p>
+                <p class="temperature">20°</p>
+            </section>
+            <section class="next__day">
+                <h3>next day</h3>
+                <img class="weather__icon sun" src="/images/animated/Sunny skies.svg" alt="">
+                <p class="weather__description">
+                </p>
+                <p class="temperature">20°</p>
+            </section>
+            <section class="next__day">
+                <h3>next day</h3>
+                <img class="weather__icon sun" src="/images/animated/Sunny skies.svg" alt="">
+                <p class="weather__description">
+                </p>
+                <p class="temperature">20°</p>
+            </section>
+            <section class="next__day">
+                <h3>next day</h3>
+                <img class="weather__icon sun" src="/images/animated/Sunny skies.svg" alt="">
+                <p class="weather__description">
+                </p>
+                <p class="temperature">20°</p>
+            </section>
+        </div>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,94 @@
+main.weather__info {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 30%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+
+
+    section.today {
+        display: grid;
+        grid-template: repeat(4, 1fr)/ repeat(4, 1fr);
+        height: 100%;
+        width: 25%;
+        border-right: 1px solid #fff5;
+
+
+        img.weather__icon.sun {
+            grid-area: 2/ 1 / 4 / 3;
+            width: 250px;
+            height: 250px;
+            opacity: 0.9;
+        }
+
+        div.weather__info {
+            grid-area: 2/ 3 / 5 / 5;
+            margin-left: 15%;
+            margin-bottom: 10%;
+
+
+            p {
+                color: white;
+                font-size: 18px;
+                font-weight: 300;
+
+                &.temperature {
+                    font-size: 64px;
+                    margin-bottom: 10px;
+                }
+
+                &.humidity {
+                    margin-bottom: 15px;
+                }
+            }
+        }
+
+    }
+
+    div.rest__of__days__container {
+        display: flex;
+        width: 75%;
+        height: 100%;
+
+        .next__day {
+            height: 100%;
+            width: calc(100% / 6);
+            border-right: 1px solid #fff5;
+            text-align: center;
+
+            &:last-of-type {
+                border: none;
+            }
+
+            h3 {
+                color: white;
+                text-transform: uppercase;
+                // text-align: center;
+                margin-top: 10px;
+                font-size: 24px;
+            }
+
+            img {
+                width: 70%;
+                height: 50%;
+
+            }
+
+            p {
+                font-size: 32px;
+                color: white;
+                text-align: center;
+
+                &.weather__description {
+                    font-size: 18px;
+                    color: white;
+                    text-transform: uppercase;
+                    margin-bottom: 10%;
+                }
+            }
+
+        }
+    }
+}

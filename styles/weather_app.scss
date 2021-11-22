@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Roboto&display=swap');
+
+@import "helpers/_typography";
+@import "helpers/_weather_app_variables";
+@import "helpers/_reset";
+
+
+
+
+
+//site structure
+
+@import "layouts/_1bg__photo";
+@import "layouts/_2searchbox";
+@import "layouts/_3date__hour";
+@import "layouts/_4city";
+@import "layouts/_5weather__info";
