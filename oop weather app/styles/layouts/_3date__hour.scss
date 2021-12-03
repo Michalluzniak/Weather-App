@@ -1,0 +1,224 @@
+/* 320 */
+@media (min-width:20rem) {
+    div.date__and__hour {
+        // display: none;
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 90px;
+        width: 50%;
+
+        .hour__box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            color: white;
+
+            p {
+                font-size: 32px;
+
+                span.ampm {
+                    font-size: 16px;
+                }
+            }
+        }
+
+        .date__box {
+            position: absolute;
+            top: 75%;
+            left: 12%;
+            height: 25%;
+            width: 100%;
+
+            p {
+                width: 100%;
+                font-size: 10px;
+                color: white;
+            }
+        }
+    }
+}
+
+/* 480 */
+@media (min-width:30rem) {
+    div.date__and__hour {
+        top: 15%;
+        left: 12.5%;
+
+        .hour__box {
+
+            p {
+                font-size: 24px;
+
+                span.ampm {
+                    font-size: 10px;
+                }
+            }
+        }
+
+        .date__box {
+            top: 70%;
+            left: 35%;
+
+            p {
+                font-size: 8px;
+            }
+        }
+    }
+}
+
+/* 641 */
+@media (min-width:40.06rem) {
+
+
+    .hour__box {
+
+        p {
+            font-size: 32px;
+
+            span.ampm {
+                font-size: 12px;
+            }
+        }
+    }
+
+    .date__box {
+        top: 70%;
+        left: 35%;
+
+        p {
+            font-size: 10px;
+        }
+    }
+}
+
+/* 961 */
+@media (min-width:60.06rem) {
+    div.date__and__hour {
+        position: absolute;
+        top: 20%;
+        left: 12.5%;
+        transform: translate(-50%, -50%);
+        height: 90px;
+        width: 25%;
+
+        .hour__box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            color: white;
+
+            p {
+                font-size: 64px;
+
+                span.ampm {
+                    font-size: 36px;
+                }
+            }
+        }
+
+        .date__box {
+            position: absolute;
+            left: 28%;
+            height: 25%;
+            width: 100%;
+
+            p {
+                width: 100%;
+                font-size: 22px;
+                color: white;
+            }
+        }
+    }
+}
+
+/* 1025 */
+@media (min-width:64.06rem) {
+    div.date__and__hour {
+        position: absolute;
+        top: 20%;
+        left: 12.5%;
+        transform: translate(-50%, -50%);
+        height: 90px;
+        width: 25%;
+
+        .hour__box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            color: white;
+
+            p {
+                font-size: 56px;
+
+                span.ampm {
+                    font-size: 32px;
+                }
+            }
+        }
+
+        .date__box {
+            position: absolute;
+            top: 90%;
+            left: 25%;
+            height: 25%;
+            width: 100%;
+
+            p {
+                width: 100%;
+                font-size: 18px;
+                color: white;
+            }
+        }
+    }
+}
+
+/* 1281*/
+@media (min-width:80.06rem) {
+
+    div.date__and__hour {
+        position: absolute;
+        top: 20%;
+        left: 12.5%;
+        transform: translate(-50%, -50%);
+        height: 90px;
+        width: 25%;
+
+        .hour__box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            color: white;
+
+            p {
+                font-size: 64px;
+
+                span.ampm {
+                    font-size: 36px;
+                }
+            }
+        }
+
+        .date__box {
+            position: absolute;
+            left: 28%;
+            height: 25%;
+            width: 100%;
+
+            p {
+                width: 100%;
+                font-size: 22px;
+                color: white;
+            }
+        }
+    }
+}

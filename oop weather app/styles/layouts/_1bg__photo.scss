@@ -1,0 +1,569 @@
+/* 320 */
+@media (min-width:20rem) {
+    div.bg__photo {
+        height: 100vh;
+        width: 100%;
+        background-image: url(../../images/louie-martinez-IocJwyqRv3M-unsplash.jpg);
+        background-position: center;
+        background-size: cover;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    div.loading__screen {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: #222;
+        z-index: 5;
+
+
+        p {
+            font-size: 64px;
+            text-transform: uppercase;
+            color: #eee;
+            margin-bottom: 100px;
+            // opacity: 0;
+        }
+
+        svg {
+            margin-top: 100px;
+            position: relative;
+            width: 150px;
+            height: 150px;
+            animation: rotate 3s linear infinite;
+            // transform: translateX(25%);
+
+            circle {
+                color: white;
+                width: 100%;
+                height: 100%;
+                fill: none;
+                stroke-width: 10px;
+                stroke: #fff;
+                stroke-linecap: round;
+                stroke-dasharray: 440;
+                stroke-dashoffset: 440;
+                transform: translate(5px, 5px);
+                animation: animate 4s linear infinite;
+
+            }
+        }
+    }
+
+    @keyframes rotate {
+
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes animate {
+
+        0%,
+        100% {
+            stroke-dashoffset: 440;
+        }
+
+        50% {
+            stroke-dashoffset: 0;
+        }
+
+        50.1% {
+            stroke-dashoffset: 880;
+        }
+    }
+}
+
+/* 480 */
+@media (min-width:30rem) {
+    div.bg__photo {
+        height: 100vh;
+        width: 100%;
+        background-image: url(../../images/louie-martinez-IocJwyqRv3M-unsplash.jpg);
+        background-position: center;
+        background-size: cover;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    div.loading__screen {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: #222;
+        z-index: 5;
+
+
+        p {
+            font-size: 64px;
+            text-transform: uppercase;
+            color: #eee;
+            margin-bottom: 100px;
+            // opacity: 0;
+        }
+
+        svg {
+            margin-top: 100px;
+            position: relative;
+            width: 150px;
+            height: 150px;
+            animation: rotate 3s linear infinite;
+            // transform: translateX(25%);
+
+            circle {
+                color: white;
+                width: 100%;
+                height: 100%;
+                fill: none;
+                stroke-width: 10px;
+                stroke: #fff;
+                stroke-linecap: round;
+                stroke-dasharray: 440;
+                stroke-dashoffset: 440;
+                transform: translate(5px, 5px);
+                animation: animate 4s linear infinite;
+
+            }
+        }
+    }
+
+    @keyframes rotate {
+
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes animate {
+
+        0%,
+        100% {
+            stroke-dashoffset: 440;
+        }
+
+        50% {
+            stroke-dashoffset: 0;
+        }
+
+        50.1% {
+            stroke-dashoffset: 880;
+        }
+    }
+}
+
+/* 641 */
+@media (min-width:40.06rem) {
+    div.bg__photo {
+        height: 100vh;
+        width: 100%;
+        background-image: url(../../images/louie-martinez-IocJwyqRv3M-unsplash.jpg);
+        background-position: center;
+        background-size: cover;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    div.loading__screen {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: #222;
+        z-index: 5;
+
+
+        p {
+            font-size: 64px;
+            text-transform: uppercase;
+            color: #eee;
+            margin-bottom: 100px;
+            // opacity: 0;
+        }
+
+        svg {
+            margin-top: 100px;
+            position: relative;
+            width: 150px;
+            height: 150px;
+            animation: rotate 3s linear infinite;
+            // transform: translateX(25%);
+
+            circle {
+                color: white;
+                width: 100%;
+                height: 100%;
+                fill: none;
+                stroke-width: 10px;
+                stroke: #fff;
+                stroke-linecap: round;
+                stroke-dasharray: 440;
+                stroke-dashoffset: 440;
+                transform: translate(5px, 5px);
+                animation: animate 4s linear infinite;
+
+            }
+        }
+    }
+
+    @keyframes rotate {
+
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes animate {
+
+        0%,
+        100% {
+            stroke-dashoffset: 440;
+        }
+
+        50% {
+            stroke-dashoffset: 0;
+        }
+
+        50.1% {
+            stroke-dashoffset: 880;
+        }
+    }
+}
+
+/* 961 */
+@media (min-width:60.06rem) {
+    div.bg__photo {
+        height: 100vh;
+        width: 100%;
+        background-image: url(../../images/louie-martinez-IocJwyqRv3M-unsplash.jpg);
+        background-position: center;
+        background-size: cover;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    div.loading__screen {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: #222;
+        z-index: 5;
+
+
+        p {
+            font-size: 64px;
+            text-transform: uppercase;
+            color: #eee;
+            margin-bottom: 100px;
+            // opacity: 0;
+        }
+
+        svg {
+            margin-top: 100px;
+            position: relative;
+            width: 150px;
+            height: 150px;
+            animation: rotate 3s linear infinite;
+            // transform: translateX(25%);
+
+            circle {
+                color: white;
+                width: 100%;
+                height: 100%;
+                fill: none;
+                stroke-width: 10px;
+                stroke: #fff;
+                stroke-linecap: round;
+                stroke-dasharray: 440;
+                stroke-dashoffset: 440;
+                transform: translate(5px, 5px);
+                animation: animate 4s linear infinite;
+
+            }
+        }
+    }
+
+    @keyframes rotate {
+
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes animate {
+
+        0%,
+        100% {
+            stroke-dashoffset: 440;
+        }
+
+        50% {
+            stroke-dashoffset: 0;
+        }
+
+        50.1% {
+            stroke-dashoffset: 880;
+        }
+    }
+}
+
+/* 1025 */
+@media (min-width:64.06rem) {
+    div.bg__photo {
+        height: 100vh;
+        width: 100%;
+        background-image: url(../../images/louie-martinez-IocJwyqRv3M-unsplash.jpg);
+        background-position: center;
+        background-size: cover;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    div.loading__screen {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: #222;
+        z-index: 5;
+
+
+        p {
+            font-size: 64px;
+            text-transform: uppercase;
+            color: #eee;
+            margin-bottom: 100px;
+            // opacity: 0;
+        }
+
+        svg {
+            margin-top: 100px;
+            position: relative;
+            width: 150px;
+            height: 150px;
+            animation: rotate 3s linear infinite;
+            // transform: translateX(25%);
+
+            circle {
+                color: white;
+                width: 100%;
+                height: 100%;
+                fill: none;
+                stroke-width: 10px;
+                stroke: #fff;
+                stroke-linecap: round;
+                stroke-dasharray: 440;
+                stroke-dashoffset: 440;
+                transform: translate(5px, 5px);
+                animation: animate 4s linear infinite;
+
+            }
+        }
+    }
+
+    @keyframes rotate {
+
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes animate {
+
+        0%,
+        100% {
+            stroke-dashoffset: 440;
+        }
+
+        50% {
+            stroke-dashoffset: 0;
+        }
+
+        50.1% {
+            stroke-dashoffset: 880;
+        }
+    }
+}
+
+/* 1281*/
+@media (min-width:80.06rem) {
+    div.bg__photo {
+        height: 100vh;
+        width: 100%;
+        background-image: url(../../images/louie-martinez-IocJwyqRv3M-unsplash.jpg);
+        background-position: center;
+        background-size: cover;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    div.loading__screen {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: #222;
+        z-index: 5;
+
+
+        p {
+            font-size: 64px;
+            text-transform: uppercase;
+            color: #eee;
+            margin-bottom: 100px;
+            // opacity: 0;
+        }
+
+        svg {
+            margin-top: 100px;
+            position: relative;
+            width: 150px;
+            height: 150px;
+            animation: rotate 3s linear infinite;
+            // transform: translateX(25%);
+
+            circle {
+                color: white;
+                width: 100%;
+                height: 100%;
+                fill: none;
+                stroke-width: 10px;
+                stroke: #fff;
+                stroke-linecap: round;
+                stroke-dasharray: 440;
+                stroke-dashoffset: 440;
+                transform: translate(5px, 5px);
+                animation: animate 4s linear infinite;
+
+            }
+        }
+    }
+
+    @keyframes rotate {
+
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes animate {
+
+        0%,
+        100% {
+            stroke-dashoffset: 440;
+        }
+
+        50% {
+            stroke-dashoffset: 0;
+        }
+
+        50.1% {
+            stroke-dashoffset: 880;
+        }
+    }
+}
