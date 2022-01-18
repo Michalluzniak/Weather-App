@@ -1,33 +1,36 @@
 class WeatherApp {
-    constructor() {}
+    constructor(CelcOrFahrTemp = 'temp_c') {
+        this.CelcOrFahrTemp = CelcOrFahrTemp;
+    }
 
     async init() {
         await this.getUserLocation();
-        await this.geoToCity();
+        await this.geolocationToCity();
         await this.timeDisplay();
-        await this.weatherDisplay();
-        await this.cityImgDisplay();
-        this.getAllCities();
-
+        await this.startInterval()
         this.dateDisplay();
-        this.sunsetSunrise()
-        this.startInterval()
-        // this.firstLoadingScreen()
-        this.firstLoadingScreen();
-
+        await this.weatherInfoDisplay();
+        await this.cityImgDisplay();
+        this.getAllCitiesList();
+        this.sunsetOrSunrise()
+        this.loadingScreenEnd();
     }
 
+
+
+    // DEFAULT COUNTRY = WARSAW
     async defaultCountry() {
-        this.latitude = '35.652832';
-        this.longitude = '139.839478';
-        await this.geoToCity();
-        await this.weatherDisplay();
-        await this.cityImgDisplay();
-        this.firstLoadingScreen();
-        this.getAllCities();
-        this.timeDisplay();
+        this.latitude = '52.237049';
+        this.longitude = '21.017532';
+        await this.geolocationToCity();
+        await this.timeDisplay();
+        await this.startInterval()
         this.dateDisplay();
-        this.startInterval()
+        await this.weatherInfoDisplay();
+        await this.cityImgDisplay();
+        this.getAllCitiesList();
+        this.sunsetOrSunrise()
+        this.loadingScreenEnd();
     }
 
     apiKeys = {
@@ -42,108 +45,100 @@ class WeatherApp {
                 navigator.geolocation.getCurrentPosition(position => {
                         this.latitude = position.coords.latitude;
                         this.longitude = position.coords.longitude;
+                        loadingContainer.style.display = 'flex';
                         resolve();
                     },
                     (error) => {
                         if (error.code == error.PERMISSION_DENIED) {
                             reject('cant get user location')
-                            this.defaultCountry()
+                            locationNotification.style.display = 'flex'
                         }
                     })
             }
         })
     }
 
-    getAllCities() {
+    getAllCitiesList() {
 
         this.citiesList = [];
         fetch('https://pkgstore.datahub.io/core/world-cities/world-cities_json/data/5b3dd46ad10990bca47b04b4739a02ba/world-cities_json.json')
             .then(res => res.json())
             .then(data => {
-                // if (!data) return;
+
                 for (const datum in data) {
                     this.citiesList.push(data[datum]);
                 }
-                // console.log(this.citiesList)
-                // return this.citiesList;
             })
     }
 
-    findMatches(wordToMatch) {
+    findSearchMatches(wordToMatch) {
         return this.citiesList.filter(place => {
-
-            wordToMatch.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
             const regex = new RegExp(wordToMatch, 'gi')
             return place.name.match(regex) || place.country.match(regex);
-
         })
     }
 
-    displayMatches(e) {
+    displaySearchMatches(e) {
         this.inputValue = e.path[0].value;
-        const matchArray = this.findMatches(this.inputValue)
-
+        const matchArray = this.findSearchMatches(this.inputValue)
         const html = matchArray.map((place, index = 0) => {
             const regex = new RegExp(this.inputValue, 'gi')
 
             const cityName =
                 place.name.replace(regex, `<span class="hl">${this.inputValue.charAt(0).toUpperCase()+ e.path[0].value.slice(1)}</span>`);
 
-            const country = place.country.replace(regex, `<span class="hl">${this.inputValue.charAt(0).toUpperCase()+ e.path[0].value.slice(1)}</span>`)
+            const countryName = place.country.replace(regex, `<span class="hl">${this.inputValue.charAt(0).toUpperCase()+ e.path[0].value.slice(1)}</span>`)
             if (index >= 6) return;
 
             index++
             return `
- <li class="citySuggestion">
- <span class="name">${cityName}, ${country}</span>
- </li>     
-            `
+            <li class="citySuggestion">
+            <span class="name">${cityName}, ${countryName}</span>
+            </li>`
         }).join('')
-
         searchSuggestion.innerHTML = html;
     }
 
-    async geoToCity() {
+    async geolocationToCity() {
         return new Promise((resolve, reject) => {
-
 
             fetch('https://proxy.michalluzniak.ct8.pl/positionstack/v1/reverse?access_key=' + this.apiKeys.weatherApiKey + '&timezone_module=1&query=' + this.latitude + ',' + this.longitude)
                 .then(res => res.json())
                 .then(data => {
-                    // console.log(data)
+                    console.log(this)
+
                     this.cityName =
                         data['data']['0']['locality'];
 
                     city.innerText = this.cityName;
 
-                    country.innerText =
-                        data['data']['0']['country'];
+                    this.countryName = data['data']['0']['country'];
+
+                    country.innerText = this.countryName;
 
                     this.timeZone =
                         data['data']['0']['timezone_module']['offset_string'];
 
                     citySearch.placeholder = `${this.cityName}, ${country.innerText.charAt(0).toUpperCase() + country.innerText.slice(1).toLowerCase()}`
-
                     resolve();
                 })
-                .catch(err => reject('wrong geolocation!'));
+                .catch(err => console.log(err));
         })
     }
 
-    cityToGeo() {
+    cityToGeolocation() {
         return new Promise((resolve, reject) => {
-            // console.log(this)
 
             fetch('https://proxy.michalluzniak.ct8.pl/positionstack/v1/forward?access_key=' + this.apiKeys.weatherApiKey + '&timezone_module=1&query=' + citySearch.value)
                 .then(res => res.json())
                 .then(data => {
-                    // console.log(data)
-                    // console.log(data['data'][`${1?1:0}`]['locality'])
+
                     this.timeZone =
                         data['data']['0']['timezone_module']['offset_string'];
 
                     this.latitude = data['data']['0']['latitude'];
                     this.longitude = data['data']['0']['longitude'];
+                    // some spaghetti code resulting from free API
                     this.cityName =
                         data['data']['0']['locality'] == null ?
                         (data['data']['1'] == undefined ?
@@ -155,9 +150,6 @@ class WeatherApp {
                             data['data']['1']['locality']) :
                         data['data']['0']['locality']
 
-
-
-                    // console.log(this.cityName);
                     country.innerText = data['data']['0']['country'];
                     city.innerText = this.cityName;
                     citySearch.placeholder = `${this.cityName}, ${country.innerText.charAt(0).toUpperCase() + country.innerText.slice(1).toLowerCase()}`
@@ -166,8 +158,7 @@ class WeatherApp {
                 .catch(err => {
                     reject(err)
                     loadingScreenAnimation.style.display = 'none';
-                    ``
-                    alert('cantll find city')
+                    alert(`can't find city`)
                 });
 
         })
@@ -179,110 +170,245 @@ class WeatherApp {
             (navigator.msMaxTouchPoints > 0));
     }
 
+    celciusOrFahrenheitSwitch(e) {
+        this.CelcOrFahrTemp = e.checked ?
+            // Change Celcius to Fahrenheit and km/h to mph
+            (this.temperatureParagraphArr.forEach((temp, idx) => {
+                    if (temp.innerText === 'N/A') return;
+                    temp.innerText = (parseFloat(temp.innerText) * 1.8 + 32).toFixed(2) + '°F'
+                }),
+                windSpeedValue.innerText = (parseFloat(windSpeedValue.innerText) / 1.609344).toFixed(1), windSpeedScale.innerText = windSpeedScale.innerText.replace('km/h', 'mph')) :
 
-    async weatherDisplay() {
+            // Change Fahrenheit to Celcius and mph to km/h
+            this.temperatureParagraphArr[0].innerText.includes('°C') ?
+            console.log('cc') :
+            (this.temperatureParagraphArr.forEach((temp, idx) => {
+                    if (temp.innerText === 'N/A') return;
+                    temp.innerText = (parseFloat(temp.innerText.replace('°F', '') - 32) / 1.8).toFixed(1) + '°C'
+                }),
+                windSpeedValue.innerText = (parseFloat(windSpeedValue.innerText) * 1.609344).toFixed(1), windSpeedScale.innerText = windSpeedScale.innerText.replace('mph', 'km/h'))
+    }
 
+
+    async weatherInfoDisplay() {
         return new Promise((resolve, reject) => {
-            let weatherIconArr = [];
-            let temperatureParagraphArr = [...temperatureParagraph]
+            this.weatherImgArr = [...weatherImg];
+            this.temperatureParagraphArr = [...temperatureParagraph];
+            this.weatherDescriptionArr = [...weatherDescription];
+
+
+            let dayOrNight = 'day'
 
             fetch('https://proxy.michalluzniak.ct8.pl/weatherunlocked/api/forecast/' + this.latitude + ',' + this.longitude + '?app_id=216ef3c2&lang=en&app_key=4aea43f539be0106a49394913bd99caa')
                 .then(res => res.json())
                 .then(data => {
                     console.log(data)
-                    this.sunsetTime = data['Days'][0]['sunset_time'];
-                    this.sunriseTime = data['Days'][0]['sunrise_time'];
-                    let localTimeString = this.localTimeCounters.replace(':', '')
-                    let localDateString = this.localCityDate.toLocaleDateString('en-GB');
 
-                    let nextSplitted = localDateString.split('/');
-                    let prevSplitted = localDateString.split('/');
 
-                    let nextDayNumber = ('0' + (nextSplitted[0] * 1 + 1))
-                    let prevDayNumber = ('0' + (prevSplitted[0] * 1 - 1))
+                    if (this.isTouchDevice()) {
+                        this.temperatureParagraphArr.splice(0, 1, (document.querySelector('.temperature__mobile')))
+                        humidity = document.querySelector('.humidity__mobile');
+                        windSpeedValue = document.querySelector('.windspeed__value__mobile');
+                        windSpeedScale = document.querySelector('.windspeed__scale__mobile')
+                        this.weatherImgArr.splice(0, 1, (document.querySelector('.weather__icon__mobile')))
+                        // console.clear();
+                        this.weatherDescriptionArr.splice(0, 1, (document.querySelector('.weather__description__mobile')))
+                        console.log('touch device')
+                        sliderDaysContainer.style.left = '0px';
+                    }
 
-                    nextSplitted[0] = nextDayNumber;
-                    prevSplitted[0] = prevDayNumber;
-                    let nextDay = nextSplitted.join('/');
-                    let prevDay = prevSplitted.join('/')
-                    // console.log(prevDay)
-                    // console.log(localDateString)
+                    let localTimeToString = this.localTimeCounters.replace(':', '')
+                    let localDateToString = this.localCityDate.toLocaleDateString('en-GB');
 
-                    //loop over api object for 6 days forecast
+                    let prevDayDate = this.localCityDate;
+                    prevDayDate.setDate(prevDayDate.getDate() - 1)
+                    console.log(localDateToString)
+                    let prevDayDateString =
+                        `${prevDayDate.getDate() < 10? '0' + prevDayDate.getDate(): prevDayDate.getDate()}/${(prevDayDate.getMonth() + 1) < 10 ? 
+                            ("0" + (prevDayDate.getMonth()+ 1)) :
+                             (prevDayDate.getMonth() + 1)}/${prevDayDate.getFullYear()}`
 
-                    if (localDateString == data['Days'][0]['date']) {
+                    console.log(prevDayDateString, localDateToString)
+
+                    if (localDateToString == data['Days'][0]['date']) {
+                        //loop over api object for 7 days forecast
+                        this.sunsetTime = data['Days'][0]['sunset_time'];
+                        this.sunriseTime = data['Days'][0]['sunrise_time'];
+                        this.nextDaySunrise = data['Days'][1]['sunrise_time'];
 
                         for (let i = 0; i < data['Days'].length - 1; i++) {
-
                             for (let j = 0; j <= data['Days'][i]['Timeframes'].length - 2; j++) {
-                                // console.log('today')
-                                // console.log(data['Days'][i]['Timeframes'][data['Days'][i]['Timeframes'].length - 1])
 
-                                if (localTimeString >= data['Days'][i]['Timeframes'][j]['time'] && localTimeString < data['Days'][i]['Timeframes'][j + 1]['time']) {
+                                let apiShortcuts = {
+                                    firstDayRule: data['Days'][0]['Timeframes'][j],
 
-                                    temperatureParagraphArr[i].innerHTML = data['Days'][i]['Timeframes'][j]['temp_c'] + '°'
-                                    // console.log(temperatureParagraphArr)
-                                    weatherDescription[i].innerHTML =
-                                        data['Days'][i]['Timeframes'][j]['wx_desc'];
+                                    default: data['Days'][i]['Timeframes'][j],
 
-                                    weatherImg[i].src = `/images/animated/${data['Days'][i]['Timeframes'][j]['wx_desc']}.svg`
+                                    nextElement: data['Days'][i]['Timeframes'][j + 1],
 
-                                } else if (localTimeString >= data['Days'][i]['Timeframes'][data['Days'][i]['Timeframes'].length - 1]['time']) {
+                                    firstDayLoop: data['Days'][0]['Timeframes'][j],
 
-                                    temperatureParagraphArr[i].innerHTML = data['Days'][i]['Timeframes'][data['Days'][i]['Timeframes'].length - 1]['temp_c'] + '°'
-                                    // console.log(temperatureParagraphArr)
-                                    weatherDescription[i].innerHTML =
-                                        data['Days'][i]['Timeframes'][data['Days'][i]['Timeframes'].length - 1]['wx_desc'];
+                                    lastTimeframe: data['Days'][i]['Timeframes'][data['Days'][i]['Timeframes'].length - 1],
 
-                                    weatherImg[i].src = `/images/animated/${data['Days'][i]['Timeframes'][data['Days'][i]['Timeframes'].length - 1]['wx_desc']}.svg`
+                                    firstDayLastTimeframe: data['Days'][0]['Timeframes'][data['Days'][0]['Timeframes'].length - 1],
 
+                                    firstDayBeforeTimeframes: data['Days'][0]['Timeframes'][0],
+
+                                    allDaysBeforeTimeframe: data['Days'][i]['Timeframes'][0],
+                                }
+
+                                if (localTimeToString >= apiShortcuts.default['time'] && localTimeToString < apiShortcuts.nextElement['time']) {
+
+                                    // console.log('today normal')
+
+                                    this.temperatureParagraphArr[i].innerHTML =
+                                        apiShortcuts.default['temp_c'] + '°C'
+
+                                    this.weatherDescriptionArr[i].innerHTML =
+                                        apiShortcuts.default['wx_desc'];
+
+                                    this.weatherImgArr[i].src = `/images/animated/${apiShortcuts.default['wx_desc']}.svg`
+
+                                    if (i < 1) {
+
+                                        humidity.innerHTML = `HUMIDITY: <br> ${apiShortcuts.firstDayLoop['humid_pct']}%`
+
+                                        windSpeedValue.innerText = apiShortcuts.firstDayLoop['windspd_kmh']
+                                    }
+
+                                } else if (localTimeToString >= apiShortcuts.lastTimeframe['time']) {
+
+                                    console.log('today after last timeframe')
+
+                                    this.temperatureParagraphArr[i].innerHTML = apiShortcuts.lastTimeframe['temp_c'] + '°C'
+
+                                    this.weatherDescriptionArr[i].innerHTML =
+                                        apiShortcuts.lastTimeframe['wx_desc'];
+
+                                    this.weatherImgArr[i].src = `/images/animated/${apiShortcuts.lastTimeframe['wx_desc']}.svg`
+
+                                    humidity.innerHTML = `HUMIDITY: <br> ${apiShortcuts.firstDayLastTimeframe['humid_pct']}%`
+
+                                    windSpeedValue.innerText = apiShortcuts.firstDayLastTimeframe['windspd_kmh']
+
+                                } else if (localTimeToString <
+                                    apiShortcuts.firstDayBeforeTimeframes['time']) {
+                                    console.log('today before first timeframe')
+
+                                    this.temperatureParagraphArr[i].innerHTML = apiShortcuts.allDaysBeforeTimeframe['temp_c'] + '°C'
+
+                                    this.weatherDescriptionArr[i].innerHTML =
+                                        apiShortcuts.allDaysBeforeTimeframe['wx_desc'];
+
+                                    this.weatherImgArr[i].src = `/images/animated/${apiShortcuts.allDaysBeforeTimeframe['wx_desc']}.svg`
+
+                                    humidity.innerHTML = `HUMIDITY: <br> ${apiShortcuts.firstDayBeforeTimeframes['humid_pct']}%`
+
+                                    windSpeedValue.innerText = apiShortcuts.firstDayBeforeTimeframes['windspd_kmh']
                                 }
                             }
                         }
                         //Last day
-                        temperatureParagraphArr[6].innerHTML = data['Days'][6]['Timeframes'][0]['temp_c'] + '°'
-                        weatherImg[6].src = `/images/animated/${data['Days'][6]['Timeframes'][0]['wx_desc']}.svg`
+                        this.temperatureParagraphArr[6].innerHTML = data['Days'][6]['Timeframes'][0]['temp_c'] + '°C'
+                        this.weatherImgArr[6].src = `/images/animated/${data['Days'][6]['Timeframes'][0]['wx_desc']}.svg`
                         weatherDescription[6].innerHTML =
                             data['Days'][6]['Timeframes'][0]['wx_desc'];
 
-                    } else if (prevDay == data['Days'][0]['date']) {
-                        console.log('yesterday')
-                        // console.log(prevDay)
+                    } else if (prevDayDateString == data['Days'][0]['date']) {
+                        //loop over api object for 6 days forecast
+                        this.sunsetTime = data['Days'][1]['sunset_time'];
+                        this.sunriseTime = data['Days'][1]['sunrise_time'];
+                        this.nextDaySunrise = data['Days'][2]['sunrise_time'];
+
                         for (let i = 1; i <= data['Days'].length - 1; i++) {
 
                             for (let j = 0; j <= data['Days'][i]['Timeframes'].length - 1; j++) {
 
 
-                                if (localTimeString >= data['Days'][i]['Timeframes'][j]['time'] && localTimeString < data['Days'][i]['Timeframes'][j + 1]['time']) {
-                                    // console.log(i)
+                                let apiShortcuts = {
+                                    default: data['Days'][i]['Timeframes'][j],
 
-                                    temperatureParagraphArr[i - 1].innerHTML = data['Days'][i]['Timeframes'][j]['temp_c'] + '°';
+                                    secondDayDefault: data['Days'][1]['Timeframes'][j],
 
-                                    // console.log(temperatureParagraphArr)
-                                    weatherDescription[i].innerHTML = data['Days'][i]['Timeframes'][j]['wx_desc'];
+                                    nextElement: data['Days'][i]['Timeframes'][j + 1],
 
-                                    weatherImg[i].src = `/images/animated/${data['Days'][i]['Timeframes'][j]['wx_desc']}.svg`
+                                    secondDayBeforeTimeframes: data['Days'][i]['Timeframes'][0],
+
+                                    secondDayBeforeOnly: data['Days'][1]['Timeframes'][0],
+                                }
+
+                                if (localTimeToString >= apiShortcuts.default['time'] && localTimeToString < apiShortcuts.nextElement['time']) {
+
+                                    console.log('day before normal');
+
+                                    this.temperatureParagraphArr[i - 1].innerHTML = apiShortcuts.default['temp_c'] + '°C'
+
+                                    this.weatherDescriptionArr[i - 1].innerHTML = apiShortcuts.default['wx_desc'];
+
+                                    this.weatherImgArr[i - 1].src = `/images/animated/${apiShortcuts.default['wx_desc']}.svg`
+                                    if (i < 2) {
+
+                                        humidity.innerHTML = `HUMIDITY: <br> ${apiShortcuts.secondDayDefault['humid_pct']}%`
+
+                                        windSpeedValue.innerText = apiShortcuts.secondDayDefault['windspd_kmh']
+                                    }
+
+                                } else if (localTimeToString <
+                                    apiShortcuts.secondDayBeforeTimeframes['time']) {
+
+                                    console.log('day before smaller than first timeframe');
+
+                                    this.temperatureParagraphArr[i - 1].innerHTML =
+                                        apiShortcuts.secondDayBeforeTimeframes['temp_c'] +
+                                        '°C'
+
+                                    this.weatherDescriptionArr[i - 1].innerHTML =
+                                        apiShortcuts.secondDayBeforeTimeframes['wx_desc'];
+
+                                    this.weatherImgArr[i - 1].src = `/images/animated/${apiShortcuts.secondDayBeforeTimeframes['wx_desc']}.svg`
+
+                                    humidity.innerHTML = `HUMIDITY: <br> ${
+                                        apiShortcuts.secondDayBeforeOnly['humid_pct']}%`
+
+                                    windSpeedValue.innerText =
+                                        apiShortcuts.secondDayBeforeOnly['windspd_kmh']
                                 }
                             }
                         }
-                        temperatureParagraphArr[6].innerHTML = 'N/A'
-                        weatherImg[6].src = `/images/animated/Not available.svg`
+                        //Last day N/A
+                        console.log('prev')
+                        this.temperatureParagraphArr[6].innerHTML = 'N/A'
+                        this.weatherImgArr[6].src = `/images/animated/Not available.svg`
                         weatherDescription[6].innerHTML = ''
-
                     }
 
-
-                    if (this.isTouchDevice()) {
-                        temperatureParagraphArr.splice(0, 1, (document.querySelector('.temperature__mobile')))
-
-                        sliderDaysContainer.style.left = '0px';
-                    }
-
+                    this.celciusOrFahrenheitSwitch(changeTempScale)
                     resolve();
                 })
         })
     }
 
+    sunsetOrSunrise() {
+        let localTimeToNumber = this.localTimeCounters.replace(':', '') * 1;
+        let sunsetTimeToNumber = this.sunsetTime.replace(':', '') * 1;
+        let sunriseTimeToNumber = this.sunriseTime.replace(':', '') * 1;
+
+        if (localTimeToNumber < sunsetTimeToNumber && localTimeToNumber > sunriseTimeToNumber) {
+            sunsetParagraph.textContent = 'Sunset'
+            sunsetParagraphTime.innerText = this.sunsetTime;
+            sunriseSunsetImg.src = 'images/animated/sunset.svg'
+
+        } else if (localTimeToNumber < sunriseTimeToNumber) {
+            sunsetParagraph.textContent = 'Sunrise'
+            sunsetParagraphTime.innerText = this.sunriseTime;
+            sunriseSunsetImg.src = 'images/animated/sunrise.svg'
+
+        } else if (localTimeToNumber > sunsetTimeToNumber) {
+            sunsetParagraph.innerHTML = 'Next day <br> Sunrise'
+            sunsetParagraphTime.innerText = this.nextDaySunrise;
+            sunriseSunsetImg.src = 'images/animated/sunrise.svg'
+        }
+    }
 
     async timeDisplay() {
         return new Promise((resolve, reject) => {
@@ -294,7 +420,6 @@ class WeatherApp {
             decimalOffset = decimalOffset == 3 ? 5 : 0;
             let timezone = offset + decimalOffset;
 
-            // console.log(this)
             this.localTime = utc + (3600000 * timezone)
 
             this.localCityDate = new Date(this.localTime)
@@ -315,12 +440,6 @@ class WeatherApp {
             resolve();
         })
     }
-
-
-    startInterval() {
-        setInterval(() => this.timeDisplay(), 1000);
-    }
-
 
     dateDisplay() {
 
@@ -350,6 +469,7 @@ class WeatherApp {
 
         const dayName = days[this.localCityDate.getDay()]
         const dayNr = this.localCityDate.getDate();
+        // console.log(dayNr, 'day nr')
         const yearNr = this.localCityDate.getFullYear()
         const monthName = months[this.localCityDate.getMonth()]
         const formatted = `${dayName}, ${dayNr} ${monthName} ${yearNr}`
@@ -360,6 +480,8 @@ class WeatherApp {
         for (let i = 0; i < 6; i++) {
             nextDays[i].textContent = days[(i + dayQ + 1) % 7]
         }
+        // alternative solution
+
         // let j = dayQ + 1;
         // let i = 0;
         // do {
@@ -370,29 +492,12 @@ class WeatherApp {
         // } while (dayQ != j)
     }
 
-    sunsetSunrise() {
-        // this.localTime > this.sunsetTime ? sunriseSunsetTime.src = 'images/animated/sunset.svg' : sunriseSunsetTime.src = 'images/animated/sunrise.svg'
-        let a = this.localTimeCounters.split(':')
-        let b = this.sunsetTime.split(':')
-        let c = this.sunriseTime.split(':')
-        let localTimeA = (a[0]) * 3600 + (a[1]) * 60
-        let sunsetTimeB = (b[0]) * 3600 + (b[1]) * 60
-        let sunriseTimeC = (c[0]) * 3600 + (c[1]) * 60
-        // console.log(localTimeA, sunsetTimeB, sunriseTimeC)
-
-        if (localTimeA < sunriseTimeC) {
-            sunriseSunsetTime.src = 'images/animated/sunrise.svg';
-            sunsetParagraph.innerText = `Sunrise at`;
-            sunsetParagraphTime.innerText = this.sunriseTime;
-        } else if (localTimeA < sunsetTimeB) {
-            sunriseSunsetTime.src = 'images/animated/sunset.svg';
-            sunsetParagraph.innerText = `Sunset at`;
-            sunsetParagraphTime.innerText = this.sunsetTime;
-
-            // console.log(this.localTimeCounters, this.sunsetTime, this.sunriseTime)
-        }
-
-
+    async startInterval() {
+        return new Promise(resolve => {
+            setInterval(() => this.timeDisplay(), 1000);
+            setInterval(() => this.dateDisplay(), 1000);
+            resolve()
+        })
     }
 
     async cityImgDisplay() {
@@ -403,6 +508,7 @@ class WeatherApp {
                 .then(res => res.json())
                 .then(data => {
                     // console.log(data)
+                    console.log('https://api.unsplash.com/search/photos/?query=' + this.cityName + this.countryName + '&client_id=' + this.apiKeys.cityBgClientId)
                     const img = new Image();
                     img.src = data['results'][1]['urls']['full'];
                     img.decode().then(() => {
@@ -410,9 +516,6 @@ class WeatherApp {
                             'url(' + img.src + ')';
                         resolve();
                     })
-
-
-
                 })
                 .catch(err => {
 
@@ -427,25 +530,28 @@ class WeatherApp {
                 });
         })
     }
-
     // End of weather script 
-
     mobileSliderLibrary = {
         pressed: false,
-
     }
 
-    checkBoundary() {
+    checkSliderBoundary() {
 
         this.outer = weatherInfoBar.getBoundingClientRect();
         this.inner = sliderDaysContainer.getBoundingClientRect();
-        // console.log(this.inner.right)
 
         if (parseInt(sliderDaysContainer.style.left) > 0) {
             sliderDaysContainer.style.left = '0px';
-        } else if (this.inner.right < this.outer.right) {
+            console.log('0')
+            document.querySelector('.next__day:nth-of-type(3)').style.borderRight = '0px'
 
+        } else if (this.inner.right < this.outer.right) {
+            console.log('2')
             sliderDaysContainer.style.left = `-${this.inner.width - this.outer.width}px`
+        } else if (parseInt(sliderDaysContainer.style.left) < 0) {
+            console.log('1')
+            document.querySelector('.next__day:nth-of-type(3)').style.borderRight = '1px solid #fff5';
+
         }
     }
 
@@ -464,30 +570,29 @@ class WeatherApp {
 
             this.currentPos = e.touches[0].clientX;
 
-
             sliderDaysContainer.style.left =
                 `${(this.currentPos - this.startPos)}px`
 
-            this.checkBoundary()
+            this.checkSliderBoundary()
         }
     }
 
-
-
-
-
-    firstLoadingScreen() {
+    loadingScreenEnd() {
         loadingScreenAnimation.style.display = 'none';
+
     }
 
-    afterSearchLoading() {
+    afterSearchAnimation() {
         loadingScreenAnimation.style.display = 'flex';
     }
 }
-let searchSuggestion = document.querySelector('.suggestions')
-let citySearch = document.querySelector('.city__search');
+
+const searchSuggestion = document.querySelector('.suggestions')
+const citySearch = document.querySelector('.city__search');
 const searchBtn = document.querySelector('.search__icon');
-const humidity = document.querySelector('.humidity');
+let humidity = document.querySelector('.humidity');
+let windSpeedValue = document.querySelector('.windspeed__value')
+let windSpeedScale = document.querySelector('.windspeed__scale')
 const temperatureParagraph = document.querySelectorAll('.temperature');
 const weatherImg = document.querySelectorAll('.weather__icon');
 const weatherDescription = document.querySelectorAll('.weather__description');
@@ -498,45 +603,63 @@ const city = document.querySelector('.city h3');
 const fullDate = document.querySelector('p.date');
 const fullHour = document.querySelector('p.hour');
 const ampm = document.querySelector('span.ampm');
-const loadingScreenAnimation = document.querySelector('.loading__screen');
 const nextDays = document.querySelectorAll('.next__day h3');
 const sliderDaysContainer = document.querySelector('.rest__of__days__container');
-let citySuggestion = document.getElementsByClassName('citySuggestion')
+const citySuggestion = document.getElementsByClassName('citySuggestion')
 let citySuggestionArr;
-let sunriseSunsetTime = document.querySelector('.sunset__sunrise')
-let sunsetParagraph = document.querySelector('.sunset__paragraph')
-let sunsetParagraphTime = document.querySelector('.sunset__paragraph__time')
-
+const sunriseSunsetImg = document.querySelector('.sunset__sunrise')
+const sunsetParagraph = document.querySelector('.sunset__paragraph')
+const sunsetParagraphTime = document.querySelector('.sunset__paragraph__time')
+const changeTempScale = document.querySelector('.temp__scale')
+const locationNotification = document.querySelector('.location__notification')
+const defaultLoadBtn = document.querySelector('.location__notification button')
+const loadingScreenAnimation = document.querySelector('.loading__screen');
+const loadingContainer = document.querySelector('.loading__container')
 
 const app = new WeatherApp();
+
+
+
 app.init();
-// app.checkBoundary();
+
+
+changeTempScale.addEventListener('click', function (e) {
+
+    app.celciusOrFahrenheitSwitch(e.path[0]);
+})
+
+
+defaultLoadBtn.addEventListener('click', () => {
+    app.defaultCountry()
+    locationNotification.style.display = 'none';
+    loadingContainer.style.display = 'flex'
+})
 
 const searchForCityBtn = async () => {
-    app.afterSearchLoading();
-    await app.cityToGeo();
+    app.afterSearchAnimation();
+    await app.cityToGeolocation();
     await app.timeDisplay()
-    await app.weatherDisplay();
+    await app.weatherInfoDisplay();
     await app.cityImgDisplay();
-
+    app.sunsetOrSunrise();
     app.dateDisplay();
-    app.firstLoadingScreen()
+    app.loadingScreenEnd()
 }
 
 searchBtn.addEventListener('click', searchForCityBtn);
 
 citySearch.addEventListener('keyup', (e) => {
+    console.log(e.path[0].value)
     if (window.innerWidth < 1280) return;
     if (e.path[0].value === "") {
         let searchRet = searchSuggestion.innerHTML = "";
         let bgRet = searchSuggestion.style.backgroundColor = "";
         return [searchRet, bgRet];
     } else if (e.path[0].value.length < 3) return;
-    app.displayMatches(e);
+    app.displaySearchMatches(e);
     citySuggestionArr = [...citySuggestion];
     chooseCitySuggestion();
 });
-
 
 const chooseCitySuggestion = function () {
     citySuggestionArr.forEach(suggestion => {
@@ -550,17 +673,16 @@ const chooseCitySuggestion = function () {
     })
 }
 
-
 window.addEventListener('keydown', async (e) => {
     if (e.key === 'Enter') {
-        app.afterSearchLoading();
-        await app.cityToGeo();
+        app.afterSearchAnimation();
+        await app.cityToGeolocation();
         await app.timeDisplay()
-        await app.weatherDisplay();
+        await app.weatherInfoDisplay();
         await app.cityImgDisplay();
-
+        app.sunsetOrSunrise();
         app.dateDisplay();
-        app.firstLoadingScreen()
+        app.loadingScreenEnd()
     }
 })
 

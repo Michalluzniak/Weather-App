@@ -5,19 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/d9b8bb9b33.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="styles/style/weather_app.css">
     <link class="favicon" rel="icon" type="image/png" href="images/favicon.png">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="styles/style/weather_app.css">
     <script src="weather_app.js" defer></script>
+    <style type="text/css">
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
     <title>Weather App</title>
 </head>
 
 <body>
     <div class="loading__screen">
-        <p>Loading your weather</p>
-        <svg>
-            <circle cx='70' cy='70' r='70' />
-        </svg>
+        <div class="loading__container">
+            <p>Loading your weather</p>
+            <svg>
+                <circle cx='70' cy='70' r='70' />
+            </svg>
+        </div>
+        <div class="location__notification">
+            <p class="ask__for__location">Turn on your location</p>
+            <i class="fas fa-map-marker-alt"></i>
+            <p class="or__use__default">or use this button to start</p>
+            <button>Default City</button>
+        </div>
     </div>
     <div class="bg__photo"></div>
     <nav class="searchbox">
@@ -30,10 +45,10 @@
     </nav>
     <div class="date__and__hour">
         <div class="hour__box">
-            <p class="hour">11:30 <span class="ampm">PM</span></p>
+            <p class="hour"><span class="ampm"></span></p>
         </div>
         <div class="date__box">
-            <p class="date">Monday, 5 July 2021</p>
+            <p class="date"></p>
         </div>
     </div>
     <div class="city__description">
@@ -48,70 +63,78 @@
         </div>
     </div>
     <div class="sunset__time">
-        <p class="sunset__paragraph">Sunset</p>
+        <p class="sunset__paragraph"></p>
         <img src="images/animated/sunset.svg" alt="" class="sunset__sunrise">
         <p class="sunset__paragraph__time"></p>
     </div>
+    <aside class="celcius__or__fahrenheit">
+        <input type="checkbox" class="temp__scale">
+    </aside>
     <section class="today__mobile">
-        <img class="weather__icon__mobile" src="/images/animated/Sunny skies.svg" alt="">
-        <p class="temperature__mobile">20°</p>
+        <p class="today__text__mobile">Today</p>
+        <img class="weather__icon__mobile" alt="">
+        <p class="weather__description__mobile"></p>
+        <p class="temperature__mobile"></p>
         <div class="weather__info__mobile">
-            <p class="humidity__mobile">HUMIDITY: 40% </p>
-            <p class="windspeed__mobile">WIND SPEED: 12 km/h</p>
+            <p class="humidity__mobile"></p>
+            <p class="windspeed__mobile">WIND SPEED:<br><span class="windspeed__value__mobile">
+                </span>
+                <span class="windspeed__scale__mobile">km/h</span></p>
             <p class="weather__description__mobile">
             </p>
         </div>
     </section>
     <main class="weather__info">
         <section class="today">
-            <img class="weather__icon sun" src="/images/animated/Sunny skies.svg" alt="">
+            <p class="today__text">Today</p>
+            <img class="weather__icon sun" alt="">
+            <p class="weather__description"></p>
             <div class="weather__info">
                 <p class="temperature">20°</p>
-                <p class="humidity">HUMIDITY: 40% </p>
-                <p class="windspeed">WIND SPEED: 12 km/h</p>
-                <p class="weather__description">
-                </p>
+                <p class="humidity"></p>
+                <p class="windspeed">WIND SPEED:<br> <span class="windspeed__value"></span>
+                    <span class="windspeed__scale">km/h</span></p>
             </div>
         </section>
         <div class="rest__of__days__container">
             <section class="next__day">
                 <h3>next day</h3>
-                <img class="weather__icon sun" src="/images/animated/Cloudy skies.svg" alt="">
+                <img class="weather__icon sun" alt="">
                 <p class="weather__description">`
                 </p>
                 <p class="temperature">20°</p>
             </section>
             <section class="next__day">
                 <h3>next day</h3>
-                <img class="weather__icon sun" src="/images/animated/Sunny skies.svg" alt="">
+                <img class="weather__icon sun" alt="">
                 <p class="weather__description">
                 </p>
                 <p class="temperature">20°</p>
             </section>
             <section class="next__day">
                 <h3>next day</h3>
-                <img class="weather__icon sun" src="/images/animated/Sunny skies.svg" alt="">
+                <img class="weather__icon sun" alt="">
                 <p class="weather__description">
                 </p>
                 <p class="temperature">20°</p>
             </section>
             <section class="next__day">
                 <h3>next day</h3>
-                <img class="weather__icon sun" src="/images/animated/Sunny skies.svg" alt="">
+                <img class="weather__icon sun" alt="">
                 <p class="weather__description">
                 </p>
                 <p class="temperature">20°</p>
             </section>
             <section class="next__day">
                 <h3>next day</h3>
-                <img class="weather__icon sun" src="/images/animated/Sunny skies.svg" alt="">
+                <img class="weather__icon sun" alt="">
                 <p class="weather__description">
                 </p>
                 <p class="temperature">20°</p>
             </section>
             <section class="next__day">
                 <h3>next day</h3>
-                <img class="weather__icon sun" src="/images/animated/Sunny skies.svg" alt="">
+                <img class="weather__icon sun" alt="">
                 <p class="weather__description">
                 </p>
                 <p class="temperature">20°</p>

@@ -1,7 +1,7 @@
+//      //      //  PORTRAIT  //      //      // 
 /* 320 */
-@media (min-width:20rem) {
+@media (min-width:20rem) and (orientation:portrait) {
     div.date__and__hour {
-        // display: none;
         position: absolute;
         top: 10%;
         left: 50%;
@@ -13,12 +13,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100%;
+            height: auto;
             width: 100%;
             color: white;
 
             p {
                 font-size: 32px;
+                text-align: center;
 
                 span.ampm {
                     font-size: 16px;
@@ -27,83 +28,77 @@
         }
 
         .date__box {
-            position: absolute;
-            top: 75%;
-            left: 12%;
-            height: 25%;
+            height: auto;
             width: 100%;
 
             p {
                 width: 100%;
                 font-size: 10px;
                 color: white;
+                text-align: center;
+            }
+        }
+    }
+}
+
+/* 410 */
+@media (min-width: 25.62rem) and (orientation:portrait) {
+
+    div.date__and__hour {
+
+        .hour__box {
+
+            p {
+                font-size: 42px;
+
+                span.ampm {
+                    font-size: 24px;
+                }
+            }
+        }
+
+        .date__box {
+
+            p {
+                font-size: 16px;
             }
         }
     }
 }
 
 /* 480 */
-@media (min-width:30rem) {
-    div.date__and__hour {
-        top: 15%;
-        left: 12.5%;
+@media (min-width:30rem) and (orientation:portrait) {
+    // div.date__and__hour {
+    //     top: 15%;
+    //     left: 12.5%;
 
-        .hour__box {
+    //     .hour__box {
 
-            p {
-                font-size: 24px;
+    //         p {
+    //             font-size: 24px;
 
-                span.ampm {
-                    font-size: 10px;
-                }
-            }
-        }
+    //             span.ampm {
+    //                 font-size: 10px;
+    //             }
+    //         }
+    //     }
 
-        .date__box {
-            top: 70%;
-            left: 35%;
+    //     .date__box {
+    //         top: 70%;
+    //         left: 35%;
 
-            p {
-                font-size: 8px;
-            }
-        }
-    }
+    //         p {
+    //             font-size: 8px;
+    //         }
+    //     }
+    // }
 }
 
 /* 641 */
-@media (min-width:40.06rem) {
+@media (min-width:40.06rem) and (orientation:portrait) {
 
-
-    .hour__box {
-
-        p {
-            font-size: 32px;
-
-            span.ampm {
-                font-size: 12px;
-            }
-        }
-    }
-
-    .date__box {
-        top: 70%;
-        left: 35%;
-
-        p {
-            font-size: 10px;
-        }
-    }
-}
-
-/* 961 */
-@media (min-width:60.06rem) {
     div.date__and__hour {
-        position: absolute;
-        top: 20%;
-        left: 12.5%;
-        transform: translate(-50%, -50%);
-        height: 90px;
-        width: 25%;
+        top: 5%;
 
         .hour__box {
             display: flex;
@@ -114,23 +109,62 @@
             color: white;
 
             p {
-                font-size: 64px;
+                font-size: 56px;
 
                 span.ampm {
-                    font-size: 36px;
+                    font-size: 16px;
                 }
             }
         }
 
         .date__box {
             position: absolute;
-            left: 28%;
+            top: 90%;
+            left: 12%;
             height: 25%;
             width: 100%;
 
             p {
                 width: 100%;
-                font-size: 22px;
+                font-size: 24px;
+                color: white;
+            }
+        }
+    }
+}
+
+/* 961 */
+@media (min-width:60.06rem) and (orientation:portrait) {
+    div.date__and__hour {
+        top: 5%;
+
+        .hour__box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            color: white;
+
+            p {
+                font-size: 56px;
+
+                span.ampm {
+                    font-size: 16px;
+                }
+            }
+        }
+
+        .date__box {
+            position: absolute;
+            top: 90%;
+            left: 12%;
+            height: 25%;
+            width: 100%;
+
+            p {
+                width: 100%;
+                font-size: 24px;
                 color: white;
             }
         }
@@ -138,7 +172,7 @@
 }
 
 /* 1025 */
-@media (min-width:64.06rem) {
+@media (min-width:64.06rem) and (orientation:portrait) {
     div.date__and__hour {
         position: absolute;
         top: 20%;
@@ -181,7 +215,7 @@
 }
 
 /* 1281*/
-@media (min-width:80.06rem) {
+@media (min-width:80.06rem) and (orientation:portrait) {
 
     div.date__and__hour {
         position: absolute;
@@ -221,4 +255,249 @@
             }
         }
     }
+}
+
+//      //      //  LANDSCAPE  //      //      // 
+
+
+/* 480 */
+@media (min-width:30rem) and (orientation:landscape) {
+    div.date__and__hour {
+        // display: none;
+        position: absolute;
+        top: 10%;
+        left: 0%;
+        transform: translateY(-50%);
+        height: 20px;
+        width: 25%;
+
+        .hour__box {
+            height: auto;
+            width: 100%;
+            color: white;
+
+            p {
+                font-size: 18px;
+                text-align: center;
+                line-height: 20px;
+
+                span.ampm {
+                    font-size: 12px;
+                }
+            }
+        }
+
+        .date__box {
+            height: auto;
+            width: 100%;
+
+            p {
+                width: 100%;
+                font-size: 8px;
+                color: white;
+                text-align: center;
+            }
+        }
+    }
+}
+
+/* 641 */
+@media (min-width:40.06rem) and (orientation:landscape) {
+
+    div.date__and__hour {
+
+        .hour__box {
+
+            p {
+                font-size: 26px;
+
+                span.ampm {
+                    font-size: 18px;
+                }
+            }
+        }
+
+        .date__box {
+
+            p {
+                font-size: 8px;
+            }
+        }
+    }
+}
+
+/* 961 */
+@media (min-width:60.06rem) and (orientation:landscape) {
+    div.date__and__hour {
+        top: 15%;
+        left: 12.5%;
+
+        .hour__box {
+
+            p {
+                font-size: 46px;
+
+                span.ampm {
+                    font-size: 22px;
+                }
+            }
+        }
+
+        .date__box {
+            top: 70%;
+            left: 30%;
+
+            p {
+                font-size: 18px;
+            }
+        }
+    }
+}
+
+/* 1025 */
+@media (min-width:64.06rem) and (orientation:landscape) and (hover: none) {
+    d div.date__and__hour {
+        top: 15%;
+        left: 12.5%;
+
+        .hour__box {
+
+            p {
+                font-size: 46px;
+
+                span.ampm {
+                    font-size: 22px;
+                }
+            }
+        }
+
+        .date__box {
+            top: 70%;
+            left: 30%;
+
+            p {
+                font-size: 18px;
+            }
+        }
+    }
+}
+
+/* 1281*/
+@media (min-width:80.06rem) and (orientation:landscape) and (hover: none) {
+
+    div.date__and__hour {
+        top: 14%;
+        left: 12.5%;
+
+        .hour__box {
+
+            p {
+                font-size: 64px;
+
+                span.ampm {
+                    font-size: 32px;
+                }
+            }
+        }
+
+        .date__box {
+            top: 85%;
+            left: 30%;
+
+            p {
+                font-size: 24px;
+            }
+        }
+    }
+}
+
+/* 1025 */
+@media (min-width:64.04rem) and (orientation:landscape) and (hover: hover) {}
+
+/* 1281*/
+@media (min-width:80.06rem) and (orientation:landscape) and (hover: hover) {
+
+    div.date__and__hour {
+        position: absolute;
+        top: 20%;
+        left: 12.5%;
+        transform: translate(-50%, -50%);
+        height: 90px;
+        width: 25%;
+
+        .hour__box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            color: white;
+
+            p {
+                font-size: 64px;
+
+                span.ampm {
+                    font-size: 36px;
+                }
+            }
+        }
+
+        .date__box {
+            position: absolute;
+            left: 28%;
+            height: 25%;
+            width: 100%;
+
+            p {
+                width: 100%;
+                font-size: 22px;
+                color: white;
+            }
+        }
+    }
+}
+
+/*1400*/
+@media (min-width:87.5rem) and (orientation:landscape) and (hover: hover) {
+
+    div.date__and__hour {
+        position: absolute;
+        top: 20%;
+        left: 12.5%;
+        transform: translate(-50%, -50%);
+        height: 90px;
+        width: 25%;
+
+        .hour__box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            color: white;
+
+            p {
+                font-size: 64px;
+
+                span.ampm {
+                    font-size: 32px;
+                }
+            }
+        }
+
+        .date__box {
+            position: absolute;
+            top: 80%;
+            left: 20%;
+            height: 25%;
+            width: 100%;
+
+            p {
+                width: 100%;
+                font-size: 24px;
+                color: white;
+            }
+        }
+    }
+
 }

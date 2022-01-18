@@ -1,5 +1,7 @@
+//      //      //  PORTRAIT  //      //      // 
+
 /* 320 */
-@media (min-width:20rem) {
+@media (min-width:20rem) and (orientation:portrait) {
     div.city__description {
         display: flex;
         flex-direction: column;
@@ -15,7 +17,7 @@
 
 
         div.which__city__box {
-            height: 70%;
+            height: auto;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -32,7 +34,7 @@
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            height: 25%;
+            height: auto;
 
 
             h2 {
@@ -46,7 +48,7 @@
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            height: 55%;
+            height: auto;
 
             h3 {
                 text-transform: uppercase;
@@ -58,146 +60,149 @@
     }
 }
 
-/* 480 */
-@media (min-width:30rem) {
+/* 410 */
+@media (min-width: 25.62rem) and (orientation:portrait) {
+
     div.city__description {
-        justify-content: space-between;
-        top: 20%;
-        right: 12.5%;
-        height: 50px;
-        width: 25%;
-        margin-right: 15px;
+        top: 35%;
 
         div.which__city__box {
-            height: 25%;
-            align-items: flex-start;
-            justify-content: flex-end;
 
             h1 {
-                font-size: 12px;
+                font-size: 22px;
             }
         }
 
         div.country {
-            justify-content: flex-end;
-            height: 25%;
-
 
             h2 {
+                font-size: 18px;
+            }
+        }
+
+        div.city {
+
+            h3 {
+                font-size: 16px;
+            }
+        }
+    }
+}
+
+
+/* 480 */
+@media (min-width:30rem) and (orientation:portrait) {
+    // div.city__description {
+    //     justify-content: space-between;
+    //     top: 20%;
+    //     right: 12.5%;
+    //     height: 50px;
+    //     width: 25%;
+    //     margin-right: 15px;
+
+    //     div.which__city__box {
+    //         height: 25%;
+    //         align-items: flex-start;
+    //         justify-content: flex-end;
+
+    //         h1 {
+    //             font-size: 12px;
+    //         }
+    //     }
+
+    //     div.country {
+    //         justify-content: flex-end;
+    //         height: 25%;
+
+
+    //         h2 {
+    //             text-transform: uppercase;
+    //             font-size: 14px;
+    //             font-weight: 300;
+    //         }
+    //     }
+
+    //     div.city {
+    //         justify-content: flex-end;
+    //         height: 25%;
+
+    //         h3 {
+    //             font-size: 12px;
+    //             margin-right: 3px;
+    //         }
+    //     }
+
+    // }
+}
+
+/* 641 */
+@media (min-width:40.06rem) and (orientation:portrait) {
+    div.city__description {
+        top: 28%;
+
+        div.which__city__box {
+
+            h1 {
+                font-size: 18px;
                 text-transform: uppercase;
-                font-size: 14px;
                 font-weight: 300;
             }
         }
 
-        div.city {
-            justify-content: flex-end;
-            height: 25%;
-
-            h3 {
-                font-size: 12px;
-                margin-right: 3px;
-            }
-        }
-
-    }
-}
-
-/* 641 */
-@media (min-width:40.06rem) {
-
-    div.city__description {
-
-        div.which__city__box {
-
-            h1 {
-                font-size: 14px;
-            }
-        }
-
         div.country {
-            justify-content: flex-end;
-            align-items: center;
-            height: 33%;
-
 
             h2 {
-                font-size: 16px;
+                font-size: 26px;
             }
         }
 
         div.city {
-            justify-content: flex-end;
-            align-items: center;
 
             h3 {
-                font-size: 14px;
-                margin-right: 3px;
+                text-transform: uppercase;
+                margin-top: 55px;
+                font-size: 18px;
+                font-weight: 300;
             }
         }
-
     }
 }
 
 /* 961 */
-@media (min-width:60.06rem) {
+@media (min-width:60.06rem) and (orientation:portrait) {
     div.city__description {
-        position: absolute;
-        top: 25%;
-        right: 12.5%;
-        transform: translate(50%, -50%);
-        height: 150px;
-        width: 25%;
-        color: white;
-        margin-right: 5%;
+        top: 28%;
 
         div.which__city__box {
-            height: 25%;
-            display: flex;
-            align-items: flex-start;
-            justify-content: flex-end;
 
             h1 {
-                font-size: 36px;
+                font-size: 18px;
                 text-transform: uppercase;
                 font-weight: 300;
-
             }
         }
 
         div.country {
-            display: flex;
-            justify-content: flex-end;
-            align-items: flex-start;
-            height: 30%;
-
 
             h2 {
-                text-transform: uppercase;
-                font-size: 64px;
-                font-weight: 300;
+                font-size: 26px;
             }
         }
 
         div.city {
-            display: flex;
-            justify-content: flex-end;
-            align-items: flex-end;
-            height: 45%;
 
             h3 {
                 text-transform: uppercase;
-                font-size: 36px;
+                margin-top: 55px;
+                font-size: 18px;
                 font-weight: 300;
-                margin-right: 5px;
             }
         }
-
     }
 }
 
 /* 1025 */
-@media (min-width:64.06rem) {
+@media (min-width:64.06rem) and (orientation:portrait) {
     div.city__description {
         position: absolute;
         top: 25%;
@@ -254,7 +259,7 @@
 }
 
 /* 1281*/
-@media (min-width:80.06rem) {
+@media (min-width:80.06rem) and (orientation:portrait) {
     div.city__description {
         position: absolute;
         top: 25%;
@@ -308,4 +313,333 @@
         }
 
     }
+}
+
+//      //      //  LANDSCAPE  //      //      // 
+
+
+/* 480 */
+@media (min-width:30rem) and (orientation:landscape) {
+    div.city__description {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: absolute;
+        top: 11%;
+        right: 2.5%;
+        height: 20px;
+        width: 25%;
+        transform: translateY(-50%);
+        color: white;
+        z-index: 2;
+
+        div.which__city__box {
+            display: flex;
+            height: auto;
+            align-items: center;
+            justify-content: flex-end;
+
+            h1 {
+                font-size: 10px;
+                text-transform: uppercase;
+                font-weight: 300;
+            }
+        }
+
+        div.country {
+            height: auto;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-bottom: 10px;
+
+
+            h2 {
+                text-transform: uppercase;
+                font-size: 16px;
+                font-weight: 300;
+            }
+        }
+
+        div.city {
+            height: auto;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            height: 25%;
+
+            h3 {
+                font-size: 10px;
+                margin-right: 3px;
+                font-weight: 300;
+                text-transform: uppercase;
+            }
+        }
+
+    }
+}
+
+/* 641 */
+@media (min-width:40.06rem) and (orientation:landscape) {
+
+    div.city__description {
+
+        div.which__city__box {
+
+            h1 {
+                font-size: 12px;
+            }
+        }
+
+        div.country {
+
+            h2 {
+                font-size: 18px;
+            }
+        }
+
+        div.city {
+
+            h3 {
+                font-size: 12px;
+            }
+        }
+
+    }
+}
+
+/* 961 */
+@media (min-width:60.06rem) and (orientation:landscape) {
+    div.city__description {
+        height: 15%;
+        top: 20%;
+
+        div.which__city__box {
+
+
+            h1 {
+                font-size: 26px;
+            }
+        }
+
+        div.country {
+            justify-content: flex-end;
+            align-items: center;
+            height: 33%;
+
+
+            h2 {
+                font-size: 32px;
+            }
+        }
+
+        div.city {
+            justify-content: flex-end;
+            align-items: center;
+
+            h3 {
+                font-size: 26px;
+                margin-right: 3px;
+            }
+        }
+
+    }
+}
+
+/* 1025 */
+@media (min-width:64.06rem) and (orientation:landscape) and (hover: none) {
+    div.city__description {
+        height: 15%;
+        top: 20%;
+
+        div.which__city__box {
+
+
+            h1 {
+                font-size: 26px;
+            }
+        }
+
+        div.country {
+            justify-content: flex-end;
+            align-items: center;
+            height: 33%;
+
+
+            h2 {
+                font-size: 32px;
+            }
+        }
+
+        div.city {
+            justify-content: flex-end;
+            align-items: center;
+
+            h3 {
+                font-size: 26px;
+                margin-right: 3px;
+            }
+        }
+
+    }
+}
+
+/* 1281*/
+@media (min-width:80.06rem) and (orientation:landscape) and (hover: none) {
+    div.city__description {
+        height: 12%;
+        top: 19%;
+
+        div.which__city__box {
+
+
+            h1 {
+                font-size: 36px;
+            }
+        }
+
+        div.country {
+            justify-content: flex-end;
+            align-items: center;
+            height: 33%;
+
+
+            h2 {
+                font-size: 42px;
+            }
+        }
+
+        div.city {
+            justify-content: flex-end;
+            align-items: center;
+
+            h3 {
+                font-size: 36px;
+                margin-right: 3px;
+            }
+        }
+
+    }
+}
+
+/* 1025 */
+@media (min-width:64.04rem) and (orientation:landscape) and (hover: hover) {}
+
+/* 1281*/
+@media (min-width:80.06rem) and (orientation:landscape) and (hover: hover) {
+
+    div.city__description {
+        position: absolute;
+        top: 25%;
+        right: 12.5%;
+        transform: translate(50%, -50%);
+        height: 150px;
+        width: 25%;
+        color: white;
+        margin-right: 5%;
+
+        div.which__city__box {
+            height: 25%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-end;
+
+            h1 {
+                font-size: 36px;
+                text-transform: uppercase;
+                font-weight: 300;
+
+            }
+        }
+
+        div.country {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-start;
+            height: 30%;
+
+
+            h2 {
+                text-transform: uppercase;
+                font-size: 64px;
+                font-weight: 300;
+            }
+        }
+
+        div.city {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            height: 45%;
+
+            h3 {
+                text-transform: uppercase;
+                font-size: 36px;
+                font-weight: 300;
+                margin-right: 5px;
+            }
+        }
+
+    }
+
+}
+
+/*1400*/
+@media (min-width:87.5rem) and (orientation:landscape) and (hover: hover) {
+
+    div.city__description {
+        position: absolute;
+        top: 25%;
+        right: 12%;
+        transform: translate(50%, -50%);
+        height: 150px;
+        width: 25%;
+        color: white;
+        margin-right: 5%;
+
+        div.which__city__box {
+            height: 25%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-end;
+
+            h1 {
+                font-size: 38px;
+                text-transform: uppercase;
+                font-weight: 300;
+            }
+        }
+
+        div.country {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-start;
+            height: 30%;
+
+
+            h2 {
+                text-transform: uppercase;
+                font-size: 48px;
+                font-weight: 300;
+                margin-right: 5px;
+            }
+        }
+
+        div.city {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            height: 45%;
+
+            h3 {
+                text-transform: uppercase;
+                font-size: 38px;
+                font-weight: 300;
+                margin-right: 10px;
+                margin-bottom: 15px;
+            }
+        }
+
+    }
+
 }
